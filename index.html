@@ -17,47 +17,55 @@
     <header id="header">
       <h1>AGAIN MY LIFE<strong>LOTTO</strong></h1>
     </header>
+    <div class="radioBox">
+      <label><input type="radio" class="radio" name="lotto" id="" value="1" /><span>1</span></label>
+      <label><input type="radio" class="radio" name="lotto" id="" value="2" /><span>2</span></label>
+      <label><input type="radio" class="radio" name="lotto" id="" value="3" /><span>3</span></label>
+      <label><input type="radio" class="radio" name="lotto" id="" value="4" /><span>4</span></label>
+      <label><input type="radio" class="radio" name="lotto" id="" value="5" /><span>5</span></label>
+    </div>
     <div class="paper">
+      <!-- <ul class="list"></ul>
       <ul class="list"></ul>
+      <ul class="list"></ul>
+      <ul class="list"></ul>
+      <ul class="list"></ul> -->
     </div>
     <script>
-      const list = document.querySelector(".paper .list");
-
-      const lotto = [];
-      const sortLotto = [];
-      for (let i = 1; i < 47; i++) {
-        lotto.push(i);
-      }
-      for (let i = 0; i < 6; i++) {
-        const selectedNum = lotto.splice(Math.floor(Math.random() * lotto.length), 1).pop();
-        sortLotto.push(selectedNum);
-      }
-      sortLotto.sort(function (first, second) {
-        return first - second;
-      });
-      //1~10   yellow
-      //11~20  blue
-      //21~30  red
-      //31~40  gray
-      //41~    gree
       const colors = ["yellow", "blue", "red", "gray", "green"];
-      let color = "";
-      for (let i = 0; i < 6; i++) {
-        /*
-        if (sortLotto[i] <= 10) {
-          color = "yellow";
-        } else if (sortLotto[i] <= 20) {
-          color = "blue";
-        } else if (sortLotto[i] <= 30) {
-          color = "red";
-        } else if (sortLotto[i] <= 40) {
-          color = "gray";
-        } else {
-          color = "green";
-        }
-        list.innerHTML += `<li class="${color}">${sortLotto[i]}</li>`;
-        */
-        list.innerHTML += `<li class="${colors[Math.ceil(sortLotto[i] / 10) - 1]}">${sortLotto[i]}</li>`;
+
+      //const list = document.querySelector(".list");
+      const paper = document.querySelector(".paper");
+      const radioList = document.querySelectorAll(".radio");
+      console.log("🚀 ~ file: index.html ~ line 37 ~ radioList", radioList[0]);
+
+      for (let i = 0; i < 5; i++) {
+        radioList[i].addEventListener("change", function () {
+          //console.log(this.value);
+          let tempHtml = "";
+          for (let j = 0; j < this.value; j++) {
+            const lotto = [];
+            const sortLotto = [];
+            tempHtml += `<ul class="list">`;
+            //여기가 핵심
+            for (let i = 1; i < 47; i++) {
+              lotto.push(i);
+            }
+            for (let i = 0; i < 6; i++) {
+              const selectedNum = lotto.splice(Math.floor(Math.random() * lotto.length), 1).pop();
+              sortLotto.push(selectedNum);
+            }
+            sortLotto.sort(function (first, second) {
+              return first - second;
+            });
+            for (let i = 0; i < 6; i++) {
+              tempHtml += `<li class="${colors[Math.ceil(sortLotto[i] / 10) - 1]}">${sortLotto[i]}</li>`;
+            }
+            // 여기까지...
+            tempHtml += "</ul>";
+            paper.innerHTML = tempHtml;
+          }
+        });
       }
     </script>
   </body>
