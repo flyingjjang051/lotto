@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LOTTO</title>
+    <link rel="stylesheet" href="css/reset.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    <link rel="stylesheet" href="css/common.css" />
+    <link rel="stylesheet" href="css/layout.css" />
+  </head>
+  <body>
+    <header id="header">
+      <h1>AGAIN MY LIFE<strong>LOTTO</strong></h1>
+    </header>
+    <div class="paper">
+      <ul class="list"></ul>
+    </div>
+    <script>
+      const list = document.querySelector(".paper .list");
+
+      const lotto = [];
+      const sortLotto = [];
+      for (let i = 1; i < 47; i++) {
+        lotto.push(i);
+      }
+      for (let i = 0; i < 6; i++) {
+        const selectedNum = lotto.splice(Math.floor(Math.random() * lotto.length), 1).pop();
+        sortLotto.push(selectedNum);
+      }
+      sortLotto.sort(function (first, second) {
+        return first - second;
+      });
+      //1~10   yellow
+      //11~20  blue
+      //21~30  red
+      //31~40  gray
+      //41~    gree
+      const colors = ["yellow", "blue", "red", "gray", "green"];
+      let color = "";
+      for (let i = 0; i < 6; i++) {
+        /*
+        if (sortLotto[i] <= 10) {
+          color = "yellow";
+        } else if (sortLotto[i] <= 20) {
+          color = "blue";
+        } else if (sortLotto[i] <= 30) {
+          color = "red";
+        } else if (sortLotto[i] <= 40) {
+          color = "gray";
+        } else {
+          color = "green";
+        }
+        list.innerHTML += `<li class="${color}">${sortLotto[i]}</li>`;
+        */
+        list.innerHTML += `<li class="${colors[Math.ceil(sortLotto[i] / 10) - 1]}">${sortLotto[i]}</li>`;
+      }
+    </script>
+  </body>
+</html>
